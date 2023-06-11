@@ -1,45 +1,12 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from sklearn.preprocessing import LabelEncoder
 from prediction import predict
 import time
 
-df = pd.read_csv('resale-flat-prices-based-on-registration-date-from-jan-2017-onwards.csv')
-
-df = df.replace('years', '')
-
-df['month'] = pd.to_datetime(df['month'], format='%Y-%m').dt.strftime('%Y-%m')
-
-df['remaining_lease'] = df['remaining_lease'].str.replace(' years ', ' ')
-df['remaining_lease'] = df['remaining_lease'].str.replace(' years', '')
-df['remaining_lease'] = df['remaining_lease'].str.replace(' months', '')
-df['remaining_lease'] = df['remaining_lease'].str.replace(' month', '')
-
-df[['Leaseyears', 'Leasemonths']] = df.remaining_lease.str.split(" ", expand = True)
-
-df['Leasemonths'].unique()
-
-df['Leasemonths'] = df['Leasemonths'].fillna(0)
-df['Leaseyears'] = df['Leaseyears'].astype('int')
-df['Leasemonths'] = df['Leasemonths'].astype('int')
-
-df['remaining_lease'] = (df['Leaseyears']*12) + df['Leasemonths']
-
-df = df.drop(columns = ['Leaseyears', 'Leasemonths'])
-
-le = LabelEncoder()
-
-df['town_le'] = le.fit_transform(df['town'])
-df['flat_type_le'] = le.fit_transform(df['flat_type'])
-df['storey_range_le'] = le.fit_transform(df['storey_range'])
-df['flat_model_le'] = le.fit_transform(df['flat_model'])
+df = pd.read_csv('data.csv')
 
 before_after_finalData = df.copy()
-
-finalData = df[['town_le', 'flat_type_le', 'storey_range_le', 'flat_model_le', 'floor_area_sqm', 'resale_price']].copy()
-
-finalData.columns = finalData.columns.str.replace('_le', '')
 
 # Sort town data alphabetically in ascending order
 Town = before_after_finalData[['town','town_le']].copy()
