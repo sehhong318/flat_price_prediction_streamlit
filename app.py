@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 from prediction import predict
-import time
 
 df = pd.read_csv('data.csv')
 
@@ -119,6 +118,5 @@ with tab3:
 
         result = predict(np.array([[town_p, flat_type_p, storey_range_p,floor_area_sqm ,flat_model_p, remaining_lease]]))
         with st.spinner("Loading..."):
-            time.sleep(2)
             st.text(result[0])
 
