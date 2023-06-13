@@ -1,3 +1,4 @@
 joblib
 xgboost==1.5.2
 plotly
+scikit-learn
