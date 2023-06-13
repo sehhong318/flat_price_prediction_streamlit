@@ -229,4 +229,15 @@ with tab3:
                 color_price = '🔴'
                 st.error('Flat Sales Price using XGBoost Classifier: {}'.format(result[1]), icon = color_price)
 
+            hist_data = [eda_df['resale_price'].values.tolist()]
+            group_labels = ['resale_price']
+            fig = ff.create_distplot(hist_data, group_labels,show_rug=False)
+            fig.update_traces(nbinsx=30, autobinx=True, selector={'type':'histogram'}) 
+            fig.add_vline(x=result[0][0], line_width=2, line_dash="dash", line_color="gray")
+
+            fig.update_layout(height = 300,yaxis_title="density",
+                xaxis_title="resale_price",showlegend=False, margin=dict(t=0, b=0))
+            st.plotly_chart(fig)
+
+
 
