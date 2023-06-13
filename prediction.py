@@ -1,8 +1,8 @@
 import joblib
 def predict(data):
 
-    rlf = joblib.load('./Model/rf_regression.sav')
-    clf = joblib.load('./Model/xgb_classification.sav')
+    rlf = joblib.load('./rf_regression.sav')
+    clf = joblib.load('./xgb_classification.sav')
 
     reg_result = rlf.predict(data)
 
